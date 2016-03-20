@@ -29,13 +29,16 @@ RUN apt-get update && \
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i "s/sendfile on/sendfile off/" /etc/nginx/nginx.conf
 RUN mkdir -p /var/www
+RUN mkdir -p /var/run/php
 
 # Configure PHP
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/fpm/php.ini
 RUN sed -i "s/;date.timezone =.*/date.timezone = Asia\/Shanghai/" /etc/php/7.0/fpm/php.ini
-RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.0/fpm/php-fpm.conf
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/cli/php.ini
 RUN sed -i "s/;date.timezone =.*/date.timezone = Asia\/Shanghai/" /etc/php/7.0/cli/php.ini
+RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.0/fpm/php-fpm.conf
+RUN sed -i "s/;pid = \/run\/php\/php7.0-fpm.pid/pid = \/var\/run\/php\/php7.0-fpm.pid/" /etc/php/7.0/fpm/php-fpm.conf
+
 RUN phpenmod mcrypt
 
 # Add nginx service

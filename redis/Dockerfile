@@ -1,14 +1,16 @@
-## Github URL: https://github.com/LaraDock/docker-images/tree/master/redis
-## Docker URL: https://hub.docker.com/r/laradock/redis
+## Github URL: https://github.com/chuantaiyi/docker-images/tree/master/redis
+## Docker URL: https://hub.docker.com/r/chuanty/redis
 ##########################################################################
-FROM phusion/baseimage:0.9.17
+FROM phusion/baseimage:0.9.18
 
-MAINTAINER Mahmoud Zalt <mahmoud@zalt.me>
-# INSPIRED BY github.com/sameersbn/docker-redis
+MAINTAINER Liu Yang <yangliu@chuanty.com>
+# INSPIRED BY https://github.com/LaraDock/docker-images
 
 ENV REDIS_USER=redis \
     REDIS_DATA_DIR=/var/lib/redis \
     REDIS_LOG_DIR=/var/log/redis
+ADD sources.list /etc/apt/sources.list
+RUN add-apt-repository -y ppa:rwky/redis
 
 RUN apt-get update \
  && apt-get install -y redis-server \
@@ -19,7 +21,7 @@ RUN apt-get update \
  && sed '/^logfile/d' -i /etc/redis/redis.conf \
  && rm -rf /var/lib/apt/lists/*
 
-COPY build/entrypoint.sh /sbin/entrypoint.sh
+COPY redis/build/entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
 
 EXPOSE 6379/tcp

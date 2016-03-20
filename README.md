@@ -28,6 +28,8 @@ All the images are built from [phusion/baseimage](https://github.com/phusion/bas
 
 *Note: PHP and NGINX are in one container, I will split them whenever I see the need for it.*
 
+### HowTo
+docker build --no-cache -t chuanty/phpnginx:7.0.4-fpm_1.8.1 -f phpnginx/Dockerfile .
 
 
 ### Questions

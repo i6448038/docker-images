@@ -69,15 +69,15 @@ ADD build/php/run.sh /etc/service/phpfpm/run
 RUN chmod +x /etc/service/phpfpm/run
 
 #Configure Supervisor
-RUN apt-get update && \
-    apt-get install  -y supervisor 
-ADD build/php/wechatTempMsg.conf /etc/supervisor/conf.d/wechatTempMsg.conf
-ADD build/php/supervisord.conf /etc/supervisor/supervisord.conf
-RUN supervisord -c /etc/supervisor/supervisord.conf
+#RUN apt-get update && \
+#    apt-get install  -y supervisor 
+#ADD build/php/wechatTempMsg.conf /etc/supervisor/conf.d/wechatTempMsg.conf
+#ADD build/php/supervisord.conf /etc/supervisor/supervisord.conf
+#RUN supervisord -c /etc/supervisor/supervisord.conf
 
 
 VOLUME ["/var/www", "/etc/nginx/sites-available", "/etc/nginx/sites-enabled"]
 
 WORKDIR /var/www
 
-EXPOSE 80 9001
+EXPOSE 80

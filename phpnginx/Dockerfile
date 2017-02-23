@@ -12,15 +12,6 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 CMD ["/sbin/my_init"]
 ENV DEBIAN_FRONTEND noninteractive
 
-#ADD sources.list /etc/apt/sources.list
-#RUN apt-get update
-#RUN apt-get install -y --force-yes software-properties-common
-#RUN apt-get install -y language-pack-en-base
-#RUN LC_ALL=en_US.UTF-8 apt-add-repository ppa:fkrull/deadsnakes-python2.7 -y
-#RUN LC_ALL=en_US.UTF-8 apt-add-repository ppa:nginx/development -y
-#RUN LC_ALL=en_US.UTF-8 apt-add-repository ppa:chris-lea/redis-server -y
-#RUN LC_ALL=en_US.UTF-8 apt-add-repository ppa:ondrej/apache2 -y
-#RUN LC_ALL=en_US.UTF-8 apt-add-repository ppa:ondrej/php -y
 
 RUN apt-get update --fix-missing 
 RUN apt-get install -y --force-yes nginx \
@@ -68,12 +59,6 @@ RUN mkdir /etc/service/phpfpm
 ADD build/php/run.sh /etc/service/phpfpm/run
 RUN chmod +x /etc/service/phpfpm/run
 
-#Configure Supervisor
-#RUN apt-get update && \
-#    apt-get install  -y supervisor 
-#ADD build/php/wechatTempMsg.conf /etc/supervisor/conf.d/wechatTempMsg.conf
-#ADD build/php/supervisord.conf /etc/supervisor/supervisord.conf
-#RUN supervisord -c /etc/supervisor/supervisord.conf
 
 
 VOLUME ["/var/www", "/etc/nginx/sites-available", "/etc/nginx/sites-enabled"]
